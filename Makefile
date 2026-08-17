@@ -6,7 +6,7 @@ CXX      := c++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Iraylib/include
 
 # List every .cpp file in the exercise here
-SRCS := main.cpp
+SRCS := main.cpp codes/unit.cpp
 OBJS := $(SRCS:.cpp=.o)
 RAYS := -Lraylib/lib -Wl,-rpath,'$$ORIGIN/raylib/lib' -lraylib
 
