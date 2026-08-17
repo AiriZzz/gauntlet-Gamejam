@@ -11,4 +11,12 @@
 
     - Installed ALSA for Audio, Mesa for OpenGL accelerated graphics, x11 for windowing system
 
- 
+ ### Day 2
+ - Brainstorms the game ideas. I list out game genres and game mechanics that I think that could be related to the theme.
+    Then I scratch off the genre and mechanics that I feel doesn't fit enough eg, shooting, platformer.
+    I also scratch ideas that are big and very hard to implement with the time constrains.
+
+ - after awhile, I settled on a Marching Order Puzzle game where you figure out what is the marching order for a parade.
+
+ - I then work on the prototype of the game. I start off with creating the class and spawning (draw())in the window.
+    Then work on making the unit drag and dropable.

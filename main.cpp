@@ -1,21 +1,72 @@
 #include "raylib.h"
 #include "codes/unit.hpp"
+#include <vector>
+
+//Settings
+
+
 
 int main(void)
 {
     InitWindow(1366, 768, "March Forward!! I think?");
     SetTargetFPS(144);
 
-    Unit fire("Firefighter", RED,{100,50},{80,80});
+    //UNIT ZONE CLASS
+    UnitZone zones({200, 300}, {400, 150});
+
+    //Units
+    std::vector<Unit> units;
+
+    //CLASS UNITS
+    Unit fire("Firefighters", RED,{100,50},{80,80});
+    Unit police("Polices", DARKBLUE, {200,50}, {80,80});
+    Unit soldier("Soldiers", DARKGREEN, {300,50}, {80,80});
+
+    units.push_back(fire);
+    units.push_back(police);
+    units.push_back(soldier);
+
+    int draggingUnit = -1; //Default no unit is being selected
 
     while (!WindowShouldClose())
-    {
+    {  
 
+        Vector2 mousePosition = GetMousePosition(); //get the position of mouse
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            for (int i = units.size() - 1; i >= 0; i--) //check for unit inside units, backwards
+            {
+                if (units[i].IsMouseOver(mousePosition)) //found the unit that overlaps with mouse
+                {
+                    draggingUnit = i;
+                    units[i].StartDragging(mousePosition); //start draggin the unit that the mouse found
+
+                    break; //stop checking when dragging starts
+                }
+            }
+        }
+
+        if (draggingUnit != -1) //if unit is being dragged
+        {
+            units[draggingUnit].UpdateDragging(mousePosition); //update position to mouse posiiton
+        }
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        {
+            if (draggingUnit != -1)
+            {
+                units[draggingUnit].StopDragging();//stops dragging the unit
+                draggingUnit = -1; //reset what unit is being drag.
+            }
+        }
+        
         BeginDrawing();
-            fire.Update();
+
             ClearBackground(RAYWHITE);
-            DrawText("FIREEEEEE", 190, 200, 20, RED);
-            fire.Draw();
+            DrawText("UNIT ZONE", 190, 200, 20, BLACK);
+            zones.Draw(); //Draw the zones where the unit can be ordered.
+            for (Unit& unit : units) unit.Draw();     //Draw unit from vector
             
         EndDrawing();
     }
