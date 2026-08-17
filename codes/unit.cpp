@@ -49,14 +49,3 @@ void Unit::StopDragging(){
 
     m_isDragging = false;
 }
-
-void UnitZone::Draw(){
-
-    DrawRectangleLines(
-        static_cast<int>(m_position.x),
-        static_cast<int>(m_position.y),
-        static_cast<int>(m_size.x),
-        static_cast<int>(m_size.y),
-        DARKGRAY
-    );
-}

@@ -22,18 +22,4 @@ class Unit{
         Vector2 m_dragOffset;
         bool m_isDragging = false;
 
-}; 
-
-
-//UnitZone is the place to put the Units in order.
-class UnitZone{
-    public:
-        UnitZone(const Vector2& position, const Vector2& size) : m_position(position), m_size(size){};
-
-        void Draw();
-    
-    private:
-        Vector2 m_position;
-        Vector2 m_size;
-
 };
