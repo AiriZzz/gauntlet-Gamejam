@@ -14,20 +14,23 @@ int main(void)
     std::vector<Unit> units;
 
     //UNIT CLASS
-    Unit fire("Firefighters", RED,{100,50},{80,80});
-    Unit police("Polices", DARKBLUE, {200,50}, {80,80});
-    Unit soldier("Soldiers", DARKGREEN, {300,50}, {80,80});
-    Unit ghost("Ghost", DARKGRAY, {400,50},{80,80});
-    Unit animal("Animals", DARKBROWN, {500,50} , {80,80});
+    Unit firefighter("Firefighters", RED,{100,50},{80,80}, UnitType::Firefighter);
+    Unit police("Polices", DARKBLUE, {200,50}, {80,80}, UnitType::Police);
+    Unit soldier("Soldiers", DARKGREEN, {300,50}, {80,80}, UnitType::Soldier);
+    Unit ghost("Ghost", DARKGRAY, {400,50},{80,80}, UnitType::Ghost);
+    Unit animal("Animals", DARKBROWN, {500,50} , {80,80}, UnitType::Animal);
 
-    units.push_back(fire);
+    units.push_back(firefighter);
     units.push_back(police);
     units.push_back(soldier);
     units.push_back(ghost);
     units.push_back(animal);
 
+    //ZONES sOLUTION
+    std::vector<UnitType> solution{UnitType::Police, UnitType::Firefighter, UnitType::Ghost};
+
     //UNIT ZONE CLASS
-    UnitZone zones({200, 300}, {400, 150});
+    UnitZone zones({200, 300}, {400, 150}, solution);
 
     int draggingUnit = -1; //Default no unit is being selected
 
@@ -76,7 +79,7 @@ int main(void)
 
             ClearBackground(RAYWHITE);
             DrawText("UNIT ZONE", 190, 200, 20, BLACK);
-            zones.Draw(); //Draw the zones where the unit can be ordered.
+            zones.Draw(mousePosition); //Draw the zones where the unit can be ordered.
             for (Unit& unit : units) unit.Draw();     //Draw unit from vector
             
         EndDrawing();

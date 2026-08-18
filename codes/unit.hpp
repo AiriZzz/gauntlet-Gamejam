@@ -2,11 +2,23 @@
 #include "raylib.h"
 #include <string>
 
-//Unit are the classes for the unit we want to drag and drop.
+//Enum class because its prevents type convertion
+enum class UnitType{
+
+    //Unitype only have these types, can add some more if want
+    Firefighter,
+    Police,
+    Soldier,
+    Ghost,
+    Animal,
+
+};
+
+//Unit are the classes for the unit to drag and drop.
 class Unit{
     public:
-        Unit(const std::string& name, Color color,const Vector2& position,const Vector2& size)
-        : m_unitName(name), m_color(color), m_position(position), m_size(size){}
+        Unit(const std::string& name, Color color,const Vector2& position,const Vector2& size, UnitType type)
+        : m_unitName(name), m_color(color), m_position(position), m_size(size), m_unitType(type){}
 
         void Draw();
         bool IsMouseOver(Vector2 mousePosition) const;
@@ -14,6 +26,7 @@ class Unit{
         void UpdateDragging(Vector2 mousePosition);
         void StopDragging();
         void SetPosition(Vector2 position);
+        UnitType GetType()const;
         
         //Returns
         Vector2 GetPosition() const;
@@ -26,5 +39,6 @@ class Unit{
         Vector2 m_size;
         Vector2 m_dragOffset;
         bool m_isDragging = false;
-
+        UnitType m_unitType;
 };
+

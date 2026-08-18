@@ -64,3 +64,8 @@ void Unit::SetPosition(Vector2 position){
 
     m_position = position;
 }
+
+UnitType Unit::GetType()const{
+
+    return m_unitType;
+}

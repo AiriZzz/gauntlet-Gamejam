@@ -1,13 +1,22 @@
 #include "unitZone.hpp"
 
-void UnitZone::Draw(){
+void UnitZone::Draw(Vector2 mousePosition)const{
+
+    Rectangle zoneRect{
+        m_position.x,m_position.y,
+        m_size.x, m_size.y,};
+
+    Color zoneColor = DARKGRAY;
+
+        if (CheckCollisionPointRec(mousePosition, zoneRect))
+    {
+        zoneColor = BLUE;
+    }
 
     DrawRectangleLines(
-        m_position.x,
-        m_position.y,
-        m_size.x,
-        m_size.y,
-        DARKGRAY
+        m_position.x, m_position.y,
+        m_size.x, m_size.y,
+        zoneColor
     );
 }
 
@@ -46,6 +55,8 @@ bool UnitZone::HasUnit(Unit* unit){
 
 void UnitZone::ArrangeUnits(){
 
+    UpdateSize(); //Update zone size first before arraging the units
+
     float currentX = m_position.x + m_unitSpaces;
     float currentY = m_position.y + m_unitSpaces;
 
@@ -67,7 +78,9 @@ void UnitZone::UpdateSize(){
         zoneWidth += m_unitSpaces;
     }
 
-    if(zoneWidth > m_minWidth) m_size.x = zoneWidth; //check if the zone Width will get bigger than the default width
+    //if(zoneWidth > m_minWidth) m_size.x = zoneWidth; //check if the zone Width will get bigger than the default width
+    m_size.x = std::max(m_minWidth, zoneWidth); //always calculate the width of the zone width.
+
 } //This calculate the width of the zone, for every units inside it, it expands
 
 void UnitZone::ReorderUnits(Unit* unit, float mouseX){
@@ -112,3 +125,23 @@ void UnitZone::HandleDrop(Unit* unit, float mouseX){
 
     if (ContainUnit(unit)) AddingUnit(unit); //add the unit if its not in the vector
 }//Handles the drop of unit on different situation
+
+bool UnitZone::IsMouseOver(Vector2 mousePosition) const{
+    Rectangle zoneRect{
+        m_position.x,m_position.y,
+        m_size.x,m_size.y};
+
+    return CheckCollisionPointRec(mousePosition, zoneRect);
+}
+
+bool UnitZone::isPuzzleSolved() const{
+
+    if(m_units.size() != m_puzzleSolution.size()) return false; //if the zone vector is not the same with solution vector
+
+    for(std::size_t i = 0; i < m_units.size(); i++) //if the size same
+    {
+        if (m_units[i]->GetType() != m_puzzleSolution[i]) return false; //check if the the vector same as solution
+    }
+
+    return true;
+} //Check if the Puzzle is solved or not
