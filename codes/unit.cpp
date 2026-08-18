@@ -3,10 +3,8 @@
 void Unit::Draw(){
                 
     DrawRectangle(
-            m_position.x,
-            m_position.y,
-            m_size.x,
-            m_size.y,
+            m_position.x, m_position.y,
+            m_size.x, m_size.y,
             m_color //Using Raylib to draw the unit in rectangle, might need to change into images.
     );
 }
@@ -14,10 +12,8 @@ void Unit::Draw(){
 bool Unit::IsMouseOver(Vector2 mousePosition)const{
 
     Rectangle unitRect{
-        m_position.x,
-        m_position.y,
-        m_size.x,
-        m_size.y
+        m_position.x,m_position.y,
+        m_size.x,m_size.y
     }; //create a rectangle at the position
 
     return CheckCollisionPointRec(mousePosition, unitRect);
