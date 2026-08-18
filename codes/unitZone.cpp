@@ -34,7 +34,7 @@ bool UnitZone::ContainUnit(Unit* unit){
 
     
     return CheckCollisionRecs(zoneRect, unitRect);    
-}
+} //checking if the unit is being inside the zone
 
 bool UnitZone::HasUnit(Unit* unit){
 
@@ -42,7 +42,7 @@ bool UnitZone::HasUnit(Unit* unit){
         if (existingUnit == unit) return true;
     
     return false;
-} //Checking if a unit is already being contained in zone
+} //Checking if a unit is already being added in zone via vector
 
 void UnitZone::ArrangeUnits(){
 
@@ -55,7 +55,7 @@ void UnitZone::ArrangeUnits(){
 
         currentX += unit->GetSize().x + m_unitSpaces;
     }
-}
+}//sets the position of the unit inside the zones
 
 void UnitZone::UpdateSize(){
 
@@ -69,3 +69,46 @@ void UnitZone::UpdateSize(){
 
     if(zoneWidth > m_minWidth) m_size.x = zoneWidth; //check if the zone Width will get bigger than the default width
 } //This calculate the width of the zone, for every units inside it, it expands
+
+void UnitZone::ReorderUnits(Unit* unit, float mouseX){
+
+    auto it = std::find(m_units.begin(),m_units.end(), unit);
+
+    if (it == m_units.end()) return; //return the end of vector
+
+    m_units.erase(it); //must temporary erase the element inside the vector
+    int insertIndex = 0;
+    
+        for (Unit* otherUnit : m_units)
+    {
+        float unitCenterX =
+            otherUnit->GetPosition().x +
+            otherUnit->GetSize().x / 2.0f;
+
+        if (mouseX > unitCenterX) //compare the mouse position center where
+        {
+            insertIndex++;
+        }
+        else
+        {
+            break;
+        }
+    } // re arragement happens here
+
+    m_units.insert(m_units.begin() + insertIndex, unit); //push on the vector array
+
+    ArrangeUnits();
+} //This method is for rearranging the unit inside the zones when picking up a unit
+
+void UnitZone::HandleDrop(Unit* unit, float mouseX){
+
+    if (HasUnit(unit)) //if found unit is in vector
+    {
+        if (ContainUnit(unit)) ReorderUnits(unit, mouseX); //reoder the unit if the unit is inside the zone
+        else ArrangeUnits(); 
+
+        return;
+    }
+
+    if (ContainUnit(unit)) AddingUnit(unit); //add the unit if its not in the vector
+}//Handles the drop of unit on different situation

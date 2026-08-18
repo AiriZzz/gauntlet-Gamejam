@@ -1,6 +1,7 @@
 #pragma once
 #include "unit.hpp"
 #include <vector>
+#include <algorithm>
 
 //UnitZone is the place to put the Units in order.
 class UnitZone{
@@ -14,6 +15,9 @@ class UnitZone{
 
         void ArrangeUnits();
         void UpdateSize();
+
+        void ReorderUnits(Unit* unit, float mouseX);
+        void HandleDrop(Unit* unit, float mouseX);
     
     private:
         Vector2 m_position;

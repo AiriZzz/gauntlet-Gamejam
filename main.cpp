@@ -67,6 +67,7 @@ int main(void)
                 } //Check if the zone contain unit and if it doesn't has the unit, then add into a vector
         
                 units[draggingUnit].StopDragging();//stops dragging the unit
+                zones.HandleDrop(releasedUnit,mousePosition.x);//UnitZone handle what to do with the Unit
                 draggingUnit = -1; //reset what unit is being drag.
             }
         }
