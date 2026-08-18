@@ -17,14 +17,17 @@ int main(void)
     Unit fire("Firefighters", RED,{100,50},{80,80});
     Unit police("Polices", DARKBLUE, {200,50}, {80,80});
     Unit soldier("Soldiers", DARKGREEN, {300,50}, {80,80});
+    Unit ghost("Ghost", DARKGRAY, {400,50},{80,80});
+    Unit animal("Animals", DARKBROWN, {500,50} , {80,80});
 
     units.push_back(fire);
     units.push_back(police);
     units.push_back(soldier);
+    units.push_back(ghost);
+    units.push_back(animal);
 
     //UNIT ZONE CLASS
     UnitZone zones({200, 300}, {400, 150});
-    zones.AddingUnit(&units[0]);
 
     int draggingUnit = -1; //Default no unit is being selected
 

@@ -59,3 +59,8 @@ Vector2 Unit::GetSize()const{
 
     return m_size;
 }
+
+void Unit::SetPosition(Vector2 position){
+
+    m_position = position;
+}

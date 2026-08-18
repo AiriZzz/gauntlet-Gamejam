@@ -13,6 +13,7 @@ class Unit{
         void StartDragging(Vector2 mousePosition);
         void UpdateDragging(Vector2 mousePosition);
         void StopDragging();
+        void SetPosition(Vector2 position);
         
         //Returns
         Vector2 GetPosition() const;
