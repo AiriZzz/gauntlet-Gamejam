@@ -3,10 +3,10 @@
 void Unit::Draw(){
                 
     DrawRectangle(
-            static_cast<int>(m_position.x),
-            static_cast<int>(m_position.y),
-            static_cast<int>(m_size.x),
-            static_cast<int>(m_size.y),
+            m_position.x,
+            m_position.y,
+            m_size.x,
+            m_size.y,
             m_color //Using Raylib to draw the unit in rectangle, might need to change into images.
     );
 }
@@ -48,4 +48,14 @@ void Unit::UpdateDragging(Vector2 mousePosition){
 void Unit::StopDragging(){
 
     m_isDragging = false;
+}
+
+Vector2 Unit::GetPosition()const{
+
+    return m_position;
+}
+
+Vector2 Unit::GetSize()const{
+
+    return m_size;
 }

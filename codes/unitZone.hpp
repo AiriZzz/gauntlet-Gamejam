@@ -9,11 +9,13 @@ class UnitZone{
 
         void Draw();
         void AddingUnit(Unit* unit);
+        bool ContainUnit(Unit* unit);
+        bool HasUnit(Uni* unit);
     
     private:
         Vector2 m_position;
         Vector2 m_size;
 
-    std::vector<Unit*> m_units;
+        std::vector<Unit*> m_units;
 
 };

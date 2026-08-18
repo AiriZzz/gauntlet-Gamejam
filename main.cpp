@@ -10,13 +10,10 @@ int main(void)
     InitWindow(1366, 768, "March Forward!! I think?");
     SetTargetFPS(144);
 
-    //UNIT ZONE CLASS
-    UnitZone zones({200, 300}, {400, 150});
-
     //Units
     std::vector<Unit> units;
 
-    //CLASS UNITS
+    //UNIT CLASS
     Unit fire("Firefighters", RED,{100,50},{80,80});
     Unit police("Polices", DARKBLUE, {200,50}, {80,80});
     Unit soldier("Soldiers", DARKGREEN, {300,50}, {80,80});
@@ -24,6 +21,10 @@ int main(void)
     units.push_back(fire);
     units.push_back(police);
     units.push_back(soldier);
+
+    //UNIT ZONE CLASS
+    UnitZone zones({200, 300}, {400, 150});
+    zones.AddingUnit(&units[0]);
 
     int draggingUnit = -1; //Default no unit is being selected
 
@@ -43,6 +44,7 @@ int main(void)
 
                     break; //stop checking when dragging starts
                 }
+
             }
         }
 
@@ -55,11 +57,17 @@ int main(void)
         {
             if (draggingUnit != -1)
             {
+                Unit* releasedUnit = &units[draggingUnit];
+                if (zones.ContainUnit(releasedUnit) && !zones.HasUnit(releasedUnit))
+                {
+                    zones.AddingUnit(releasedUnit);
+                } //Check if the zone contain unit and if it doesn't has the unit, then add into a vector
+        
                 units[draggingUnit].StopDragging();//stops dragging the unit
                 draggingUnit = -1; //reset what unit is being drag.
             }
         }
-        
+
         BeginDrawing();
 
             ClearBackground(RAYWHITE);

@@ -13,6 +13,10 @@ class Unit{
         void StartDragging(Vector2 mousePosition);
         void UpdateDragging(Vector2 mousePosition);
         void StopDragging();
+        
+        //Returns
+        Vector2 GetPosition() const;
+        Vector2 GetSize() const;
 
     private:
         std::string m_unitName;

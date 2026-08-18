@@ -3,15 +3,41 @@
 void UnitZone::Draw(){
 
     DrawRectangleLines(
-        static_cast<int>(m_position.x),
-        static_cast<int>(m_position.y),
-        static_cast<int>(m_size.x),
-        static_cast<int>(m_size.y),
+        m_position.x,
+        m_position.y,
+        m_size.x,
+        m_size.y,
         DARKGRAY
     );
 }
 
 void UnitZone::AddingUnit(Unit* unit){
 
-    m_units.push_back(unit);
+    m_units.push_back(unit); // Add drawned unit in array
 }
+
+bool UnitZone::ContainUnit(Unit* unit){
+
+    Vector2 unitPosition = unit->GetPosition();
+    Vector2 unitSize = unit->GetSize();
+
+    Rectangle unitRect{ 
+        unitPosition.x,unitPosition.y
+        ,unitSize.x,unitSize.y};
+
+    Rectangle zoneRect{
+        m_position.x, m_position.y
+        ,m_size.x, m_size.y};
+
+    
+    return CheckCollisionRecs(zoneRect, unitRect);    
+}
+
+bool UnitZone::HasUnit(Unit* unit){
+
+    for (Unit* existingUnit : m_units)
+        if (existingUnit == unit) return true;
+    
+    return false;
+} //Checking if a unit is already being contained in zone
+
