@@ -1,6 +1,6 @@
 #include "unitZone.hpp"
 
-void UnitZone::Draw(Vector2 mousePosition)const{
+void UnitZone::Draw(Vector2 mousePosition, bool isDragging)const{
 
     Rectangle zoneRect{
         m_position.x,m_position.y,
@@ -8,10 +8,10 @@ void UnitZone::Draw(Vector2 mousePosition)const{
 
     Color zoneColor = DARKGRAY;
 
-        if (CheckCollisionPointRec(mousePosition, zoneRect))
+        if ( isDragging || CheckCollisionPointRec(mousePosition, zoneRect))
     {
         zoneColor = BLUE;
-    }
+    } //Change the color of the zone into blue if dragging unit and hovering on top of the zone
 
     DrawRectangleLines(
         m_position.x, m_position.y,

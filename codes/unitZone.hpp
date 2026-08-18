@@ -9,7 +9,7 @@ class UnitZone{
         UnitZone(const Vector2& position, const Vector2& size, const std::vector<UnitType>& solution) 
         : m_position(position), m_size(size), m_minWidth(size.x), m_puzzleSolution(solution){}
 
-        void Draw(Vector2 mousePosition) const;
+        void Draw(Vector2 mousePosition, bool isDragging) const;
         void AddingUnit(Unit* unit);
         bool ContainUnit(Unit* unit);
         bool HasUnit(Unit* unit);
