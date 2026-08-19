@@ -8,23 +8,23 @@ LevelData CreateLevel1(){
 
     level.units = {
         {
-           "Firefighter", RED, {820, 540}, {80, 80},  UnitType::Firefighter
+           "Firefighter", RED, {350, 540}, {80, 80},  UnitType::Firefighter
         },
 
         {
-            "Polices", DARKBLUE, Vector2{920, 540}, Vector2{80, 80}, UnitType::Police
+            "Polices", DARKBLUE, Vector2{450, 540}, Vector2{80, 80}, UnitType::Police
         },
 
         {
-            "Soldiers", DARKGREEN, Vector2{1020, 540}, Vector2{80, 80}, UnitType::Soldier
+            "Soldiers", DARKGREEN, Vector2{550, 540}, Vector2{80, 80}, UnitType::Soldier
         },
 
         {
-            "Ghosts", DARKGRAY, Vector2{1120, 540}, Vector2{80, 80}, UnitType::Ghost
+            "Ghosts", DARKGRAY, Vector2{650, 540}, Vector2{80, 80}, UnitType::Ghost
         },
 
         {
-            "Animals", DARKBROWN, Vector2{1220, 540}, Vector2{80, 80}, UnitType::Animal
+            "Animals", DARKBROWN, Vector2{750, 540}, Vector2{80, 80}, UnitType::Animal
         },
 
 

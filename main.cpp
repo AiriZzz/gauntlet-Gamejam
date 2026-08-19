@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    InitWindow(1366, 768, "March Forward!! I think?");
+    InitWindow(1366, 768, "Will it Parade?");
     SetTargetFPS(144);
 
     LevelData levelData = CreateLevel1(); //store the data of createlevel1 to the leveldata

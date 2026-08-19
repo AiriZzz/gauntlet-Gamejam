@@ -50,14 +50,22 @@ void Level::Update(){
             m_zones.HandleDrop(releasedUnit,mousePosition.x);//UnitZone handle what to do with the Unit
             m_draggingUnit = nullptr; //reset what unit is being drag.
 
-            
-            if (m_zones.isPuzzleSolved()){
-                //std::cout << "Puzzle Solved!" << std::endl;
-                m_puzzleSolved = true;
-            }
-
             m_draggingUnit = nullptr;
         }
+    }
+
+    Rectangle checkButton{
+    1020, 500,
+    150, 50
+    };
+
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        if (CheckCollisionPointRec(mousePosition,checkButton))
+        {
+            if(m_zones.isPuzzleSolved()) m_puzzleSolved = true;
+        }
+        
     }
 
 }
@@ -73,9 +81,9 @@ void Level::Draw(){
     for (const auto& unit : m_units) unit->Draw();     //Draw unit from vector
     
     if (m_puzzleSolved){
-        DrawText("PUZZLE SOLVED!",280,100,30,GREEN);
+        DrawText("PUZZLE SOLVED!",880,100,30,GREEN);
 
-        DrawText("Great job!",330,140,20,DARKGREEN);
+        DrawText("Great job!",830,140,20,DARKGREEN);
     } //When puzzle is solved, write a simple text
 
     DrawTextureEx(
@@ -83,4 +91,20 @@ void Level::Draw(){
         {120,80}, 0, 0.4,
         WHITE
     ); //Draw Image texture
+
+    Rectangle checkButton{
+    1020, 500,
+    150, 50
+    };
+
+    DrawRectangleRec(
+    checkButton,
+    ORANGE
+    );
+
+    DrawText(
+    "CHECK",
+    1060, 615, 20,
+    BLACK
+    ); //Adding a check button for the solution to be checked
 }
