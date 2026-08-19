@@ -3,6 +3,7 @@
 Level::Level(const LevelData& levelData) 
 : m_zones(levelData.zonePosition, levelData.zoneSize, levelData.solution){
 
+    m_levelPopup = LoadTexture("codes/Images/Level1.png");
     for (const UnitData& unitData : levelData.units)
     {
         m_units.push_back(std::make_unique<Unit>(unitData.name, unitData.color, unitData.position, unitData.size, unitData.type));
@@ -16,7 +17,7 @@ void Level::Update(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        //std::cout << mousePosition.x << " " << mousePosition.y << "\n" ;
+        std::cout << mousePosition.x << " " << mousePosition.y << "\n" ;
         for (int i = m_units.size() - 1; i >= 0; i--) //check for unit inside units, backwards
         {
             if (m_units[i]->IsMouseOver(mousePosition)) //found the unit that overlaps with mouse
@@ -58,6 +59,7 @@ void Level::Update(){
             m_draggingUnit = nullptr;
         }
     }
+
 }
 
 void Level::Draw(){
@@ -75,4 +77,10 @@ void Level::Draw(){
 
         DrawText("Great job!",330,140,20,DARKGREEN);
     } //When puzzle is solved, write a simple text
+
+    DrawTextureEx(
+        m_levelPopup,
+        {120,80}, 0, 0.4,
+        WHITE
+    ); //Draw Image texture
 }

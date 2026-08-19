@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 
 class Level
 {
@@ -21,4 +22,6 @@ private:
 
     Unit* m_draggingUnit = nullptr;
     bool m_puzzleSolved = false;
+
+    Texture2D m_levelPopup;
 };
