@@ -21,7 +21,9 @@ struct LevelData{
     std::vector<UnitData> units;
     std::vector<UnitType> solution;
 
-    Vector2 zonePosition;
-    Vector2 zoneSize;
+    //Vector2 zonePosition;
+    //Vector2 zoneSize;
+
+    //std::string LevelPopup;
     
 };

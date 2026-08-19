@@ -20,9 +20,6 @@ LevelData CreateLevel2(){
         UnitType::Firefighter
     };
 
-    level.zonePosition = {840, 300};
-    level.zoneSize = {400, 150};
-
     return level;
 
 }

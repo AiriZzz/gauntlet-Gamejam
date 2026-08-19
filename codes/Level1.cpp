@@ -6,7 +6,7 @@ LevelData CreateLevel1(){
 
     level.units = {
         {
-           "Firefighter", RED, {350, 540}, {80, 80},  UnitType::Firefighter
+           "Firefighter", RED, {280, 550}, {80, 80},  UnitType::Firefighter
         },
 
     };
@@ -14,9 +14,6 @@ LevelData CreateLevel1(){
     level.solution = {
         UnitType::Firefighter,
     };
-
-    level.zonePosition = {840, 300};
-    level.zoneSize = {400, 150};
 
     return level;
 

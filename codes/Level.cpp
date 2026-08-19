@@ -1,8 +1,8 @@
 #include "Level.hpp"
 
 Level::Level(const LevelData& levelData) 
-: m_unitZones ({300, 500}, {400, 120}), 
-    m_marchingZones(levelData.zonePosition, levelData.zoneSize, levelData.solution){
+: m_unitZones ({260, 550}, {400, 190}), 
+    m_marchingZones({700, 270}, {600, 260}, levelData.solution){
 
     m_levelPopup = LoadTexture("codes/Images/Level1.png");
     
