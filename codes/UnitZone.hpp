@@ -29,6 +29,6 @@ private:
 
     std::vector<Unit*> m_units;
 
-    float m_unitSpaces = 10.0f;
+    float m_unitSpaces = 20.0f;
     float m_minWidth;
 };

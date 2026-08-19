@@ -5,6 +5,7 @@ Level::Level(const LevelData& levelData)
     m_marchingZones(levelData.zonePosition, levelData.zoneSize, levelData.solution){
 
     m_levelPopup = LoadTexture("codes/Images/Level1.png");
+    
     for (const UnitData& unitData : levelData.units)
     {
         m_units.push_back(std::make_unique<Unit>(unitData.name, unitData.color, unitData.position, unitData.size, unitData.type));
@@ -52,33 +53,30 @@ void Level::Update(){
         {
             Unit* releasedUnit = m_draggingUnit;
 
-            releasedUnit->StopDragging();
+            releasedUnit->StopDragging(); 
 
-            if (m_marchingZones.ContainUnit(releasedUnit))
+            if (m_marchingZones.ContainUnit(releasedUnit)) //check the marching zone contain unit
             {
                 if(m_draggedUnitZone){
 
                     m_unitZones.RemoveUnit(releasedUnit);
                 }
 
-                m_marchingZones.HandleDrop(releasedUnit, mousePosition.x);
+                m_marchingZones.HandleDrop(releasedUnit, mousePosition.x); //deal where the drop happens
             }
-            
-            else if (m_unitZones.ContainUnit(releasedUnit))
+             
+            else if (m_unitZones.ContainUnit(releasedUnit)) //check the unitzone contain unit
             {
                 if(!m_draggedUnitZone){
                     
                     m_marchingZones.RemoveUnit(releasedUnit);
                 }
-
-                m_unitZones.AddingUnit(releasedUnit);
+ 
+                m_unitZones.HandleDrop(releasedUnit, mousePosition.x); //deal where the drop happens
             }
     
-            //m_draggingUnit->StopDragging();//stops dragging the unit
-            //m_marchingZones.HandleDrop(releasedUnit,mousePosition.x);//UnitZone handle what to do with the Unit
-            m_draggingUnit = nullptr; //reset what unit is being drag.
 
-            m_draggingUnit = nullptr;
+            m_draggingUnit = nullptr;   //reset what unit is being drag.
         }
     }
 

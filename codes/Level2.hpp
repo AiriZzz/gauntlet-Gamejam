@@ -1,4 +1,4 @@
 #pragma once
 #include "LevelData.hpp"
 
-LevelData CreateLevel1();
+LevelData CreateLevel2();
