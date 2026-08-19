@@ -1,6 +1,6 @@
-#include "unitZone.hpp"
+#include "MarchingZone.hpp"
 
-void UnitZone::Draw(Vector2 mousePosition, bool isDragging)const{
+void MarchingZone::Draw(Vector2 mousePosition, bool isDragging)const{
 
     Rectangle zoneRect{
         m_position.x,m_position.y,
@@ -20,7 +20,7 @@ void UnitZone::Draw(Vector2 mousePosition, bool isDragging)const{
     );
 }
 
-void UnitZone::AddingUnit(Unit* unit){
+void MarchingZone::AddingUnit(Unit* unit){
 
     m_units.push_back(unit); // Add drawned unit in array
 
@@ -28,7 +28,19 @@ void UnitZone::AddingUnit(Unit* unit){
     ArrangeUnits(); //Arrange the unit after adding in
 }
 
-bool UnitZone::ContainUnit(Unit* unit){
+void MarchingZone::RemoveUnit(Unit* unit){
+
+    auto it = std::find(m_units.begin(), m_units.end(), unit);
+
+    if (it != m_units.end()) {
+        m_units.erase(it);
+
+        UpdateSize();
+        ArrangeUnits();
+    }
+}
+
+bool MarchingZone::ContainUnit(Unit* unit) const{
 
     Vector2 unitPosition = unit->GetPosition();
     Vector2 unitSize = unit->GetSize();
@@ -45,7 +57,7 @@ bool UnitZone::ContainUnit(Unit* unit){
     return CheckCollisionRecs(zoneRect, unitRect);    
 } //checking if the unit is being inside the zone
 
-bool UnitZone::HasUnit(Unit* unit){
+bool MarchingZone::HasUnit(Unit* unit) const{
 
     for (Unit* existingUnit : m_units)
         if (existingUnit == unit) return true;
@@ -53,7 +65,7 @@ bool UnitZone::HasUnit(Unit* unit){
     return false;
 } //Checking if a unit is already being added in zone via vector
 
-void UnitZone::ArrangeUnits(){
+void MarchingZone::ArrangeUnits(){
 
     UpdateSize(); //Update zone size first before arraging the units
 
@@ -68,7 +80,7 @@ void UnitZone::ArrangeUnits(){
     }
 }//sets the position of the unit inside the zones
 
-void UnitZone::UpdateSize(){
+void MarchingZone::UpdateSize(){
 
     float zoneWidth = m_unitSpaces;
 
@@ -83,7 +95,7 @@ void UnitZone::UpdateSize(){
 
 } //This calculate the width of the zone, for every units inside it, it expands
 
-void UnitZone::ReorderUnits(Unit* unit, float mouseX){
+void MarchingZone::ReorderUnits(Unit* unit, float mouseX){
 
     auto it = std::find(m_units.begin(),m_units.end(), unit);
 
@@ -113,7 +125,7 @@ void UnitZone::ReorderUnits(Unit* unit, float mouseX){
     ArrangeUnits();
 } //This method is for rearranging the unit inside the zones when picking up a unit
 
-void UnitZone::HandleDrop(Unit* unit, float mouseX){
+void MarchingZone::HandleDrop(Unit* unit, float mouseX){
 
     if (HasUnit(unit)) //if found unit is in vector
     {
@@ -126,7 +138,7 @@ void UnitZone::HandleDrop(Unit* unit, float mouseX){
     if (ContainUnit(unit)) AddingUnit(unit); //add the unit if its not in the vector
 }//Handles the drop of unit on different situation
 
-bool UnitZone::IsMouseOver(Vector2 mousePosition) const{
+bool MarchingZone::IsMouseOver(Vector2 mousePosition) const{
     Rectangle zoneRect{
         m_position.x,m_position.y,
         m_size.x,m_size.y};
@@ -134,7 +146,7 @@ bool UnitZone::IsMouseOver(Vector2 mousePosition) const{
     return CheckCollisionPointRec(mousePosition, zoneRect);
 }
 
-bool UnitZone::isPuzzleSolved() const{
+bool MarchingZone::isPuzzleSolved() const{
 
     if(m_units.size() != m_puzzleSolution.size()) return false; //if the zone vector is not the same with solution vector
 

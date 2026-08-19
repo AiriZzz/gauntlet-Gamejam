@@ -1,12 +1,15 @@
 #include "Level.hpp"
 
 Level::Level(const LevelData& levelData) 
-: m_zones(levelData.zonePosition, levelData.zoneSize, levelData.solution){
+: m_unitZones ({300, 500}, {400, 120}), 
+    m_marchingZones(levelData.zonePosition, levelData.zoneSize, levelData.solution){
 
     m_levelPopup = LoadTexture("codes/Images/Level1.png");
     for (const UnitData& unitData : levelData.units)
     {
         m_units.push_back(std::make_unique<Unit>(unitData.name, unitData.color, unitData.position, unitData.size, unitData.type));
+
+        m_unitZones.AddingUnit(m_units.back().get());
     }
 }
 
@@ -23,6 +26,13 @@ void Level::Update(){
             if (m_units[i]->IsMouseOver(mousePosition)) //found the unit that overlaps with mouse
             {
                 m_draggingUnit = m_units[i].get();
+
+                if(m_unitZones.HasUnit(m_draggingUnit))
+                {
+                    m_draggedUnitZone = true;
+                }
+                else m_draggedUnitZone = false;
+
                 m_draggingUnit->StartDragging(mousePosition); //start draggin the unit that the mouse found
 
                 break; //stop checking when dragging starts
@@ -41,13 +51,31 @@ void Level::Update(){
         if (m_draggingUnit != nullptr)
         {
             Unit* releasedUnit = m_draggingUnit;
-            if (m_zones.ContainUnit(releasedUnit) && !m_zones.HasUnit(releasedUnit))
+
+            releasedUnit->StopDragging();
+
+            if (m_marchingZones.ContainUnit(releasedUnit))
             {
-                m_zones.AddingUnit(releasedUnit);
-            } //Check if the zone contain unit and if it doesn't has the unit, then add into a vector
+                if(m_draggedUnitZone){
+
+                    m_unitZones.RemoveUnit(releasedUnit);
+                }
+
+                m_marchingZones.HandleDrop(releasedUnit, mousePosition.x);
+            }
+            
+            else if (m_unitZones.ContainUnit(releasedUnit))
+            {
+                if(!m_draggedUnitZone){
+                    
+                    m_marchingZones.RemoveUnit(releasedUnit);
+                }
+
+                m_unitZones.AddingUnit(releasedUnit);
+            }
     
-            m_draggingUnit->StopDragging();//stops dragging the unit
-            m_zones.HandleDrop(releasedUnit,mousePosition.x);//UnitZone handle what to do with the Unit
+            //m_draggingUnit->StopDragging();//stops dragging the unit
+            //m_marchingZones.HandleDrop(releasedUnit,mousePosition.x);//UnitZone handle what to do with the Unit
             m_draggingUnit = nullptr; //reset what unit is being drag.
 
             m_draggingUnit = nullptr;
@@ -63,7 +91,7 @@ void Level::Update(){
     {
         if (CheckCollisionPointRec(mousePosition,checkButton))
         {
-            if(m_zones.isPuzzleSolved()) m_puzzleSolved = true;
+            if(m_marchingZones.isPuzzleSolved()) m_puzzleSolved = true;
         }
         
     }
@@ -76,7 +104,9 @@ void Level::Draw(){
     DrawText("UNIT ZONE", 190, 200, 20, BLACK);
     
     bool isDraggin = m_draggingUnit != nullptr;
-    m_zones.Draw(mousePosition, isDraggin); //Draw the zones where the unit can be ordered.
+    m_marchingZones.Draw(mousePosition, isDraggin); //Draw the Marching zones
+
+    m_unitZones.Draw(); //Draw the Unit Zones
     
     for (const auto& unit : m_units) unit->Draw();     //Draw unit from vector
     
@@ -104,7 +134,7 @@ void Level::Draw(){
 
     DrawText(
     "CHECK",
-    1060, 615, 20,
+    1060, 515, 20,
     BLACK
     ); //Adding a check button for the solution to be checked
 }

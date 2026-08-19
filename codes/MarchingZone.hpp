@@ -4,15 +4,16 @@
 #include <algorithm>
 
 //UnitZone is the place to put the Units in order.
-class UnitZone{
+class MarchingZone{
     public:
-        UnitZone(const Vector2& position, const Vector2& size, const std::vector<UnitType>& solution) 
+        MarchingZone(const Vector2& position, const Vector2& size, const std::vector<UnitType>& solution) 
         : m_position(position), m_size(size), m_minWidth(size.x), m_puzzleSolution(solution){}
 
         void Draw(Vector2 mousePosition, bool isDragging) const;
         void AddingUnit(Unit* unit);
-        bool ContainUnit(Unit* unit);
-        bool HasUnit(Unit* unit);
+        void RemoveUnit(Unit* unit);
+        bool ContainUnit(Unit* unit) const;
+        bool HasUnit(Unit* unit) const;
 
         void ArrangeUnits();
         void UpdateSize();
