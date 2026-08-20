@@ -6,7 +6,7 @@ void MarchingZone::Draw(Vector2 mousePosition, bool isDragging)const{
         m_position.x,m_position.y,
         m_size.x, m_size.y,};
 
-    Color zoneColor = BLANK;
+    Color zoneColor = BLACK;
 
         if ( isDragging || CheckCollisionPointRec(mousePosition, zoneRect))
     {

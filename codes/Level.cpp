@@ -2,7 +2,7 @@
 
 Level::Level(const LevelData& levelData) 
 : m_unitZones ({390, 790}, {400, 250}), 
-    m_marchingZones({960, 440}, {700, 300}, levelData.solution){
+    m_marchingZones({850, 430}, {1000, 300}, levelData.solution){
 
     m_levelPopup = LoadTexture(levelData.LevelPopup.c_str());
     
@@ -25,7 +25,7 @@ void Level::Update(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        //std::cout << mousePosition.x << " " << mousePosition.y << "\n" ; /JUST MOUSE COORDINATION
+        std::cout << mousePosition.x << " " << mousePosition.y << "\n" ; //JUST MOUSE COORDINATION
         
         for (int i = m_units.size() - 1; i >= 0; i--) //check for unit inside units, backwards
         {

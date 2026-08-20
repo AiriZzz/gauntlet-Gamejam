@@ -2,6 +2,13 @@
 #include "Level.hpp"
 #include "Levels/Level1.hpp"
 #include "Levels/Level2.hpp"
+#include "Levels/Level3.hpp"
+#include "Levels/Level4.hpp"
+#include "Levels/Level5.hpp"
+#include "Levels/Level6.hpp"
+#include "Levels/Level7.hpp"
+#include "Levels/Level8.hpp"
+
 
 #include <memory>
 
@@ -27,6 +34,7 @@ private:
     Texture2D m_startMenu;
     Texture2D m_confirmButton;
     Texture2D m_correctScreen;
+    Texture2D m_thankYouScreen;
 
     bool m_showStartMenu = true;
     bool m_showCorrectScreen = false;

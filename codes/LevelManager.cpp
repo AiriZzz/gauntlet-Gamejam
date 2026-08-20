@@ -7,13 +7,15 @@ LevelManager::LevelManager()
 
     m_level = std::make_unique<Level>(levelData);
 
-    m_background = LoadTexture("codes/Images/Background1.png");
+    m_background = LoadTexture("codes/Images/Background2.png");
 
     m_startMenu = LoadTexture("codes/Images/Menu.png");
 
     m_confirmButton = LoadTexture("codes/Images/Levels/Confirm.png");
 
     m_correctScreen = LoadTexture("codes/Images/Levels/CorrectScreen.png");
+
+    m_thankYouScreen = LoadTexture("codes/Images/ThankYou.png");
 
     m_backgroundMusic = LoadMusicStream("codes/Images/BGM.mp3");
 
@@ -73,9 +75,16 @@ void LevelManager::Draw()
 
     if(m_level->CheckPuzzle()) {
 
+        if(m_currentLevel != 8){
+        
         DrawTextureEx(
             m_correctScreen, {(static_cast<float>(GetScreenWidth()) / 2) - (m_correctScreen.width/2) , (static_cast<float>(GetScreenHeight()) / 2) - (m_correctScreen.height/2)} //to centre texture in the screen, only works when scale is 1.0
             , 0.0, 1.0, WHITE);
+        }
+        else DrawTextureEx(
+            m_thankYouScreen, {(static_cast<float>(GetScreenWidth()) / 2) - (m_correctScreen.width/2) , (static_cast<float>(GetScreenHeight()) / 2) - (m_correctScreen.height/2)} //to centre texture in the screen, only works when scale is 1.0
+            , 0.0, 1.0, WHITE);
+
     }
     
 }
@@ -84,9 +93,53 @@ void LevelManager::NextLevel()
 {
     m_currentLevel++;
 
+    if(m_currentLevel == 9) m_currentLevel = 2;
+
     if (m_currentLevel == 2)
     {
         LevelData levelData = CreateLevel2();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 3)
+    {
+        LevelData levelData = CreateLevel3();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 4)
+    {
+        LevelData levelData = CreateLevel4();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 5)
+    {
+        LevelData levelData = CreateLevel5();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 6)
+    {
+        LevelData levelData = CreateLevel6();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 7)
+    {
+        LevelData levelData = CreateLevel7();
+
+        m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
+    }
+
+        if (m_currentLevel == 8)
+    {
+        LevelData levelData = CreateLevel8();
 
         m_level = std::make_unique<Level>(levelData); //replace old data with new, next level data
     }
