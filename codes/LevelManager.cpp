@@ -23,6 +23,8 @@ LevelManager::LevelManager()
 
     m_backgroundMusic.looping = true;
 
+    SetMusicVolume(m_backgroundMusic, 0.4);
+
     PlayMusicStream(m_backgroundMusic);
 }
 
@@ -30,6 +32,9 @@ LevelManager::~LevelManager()
 {
     UnloadTexture(m_background);
     UnloadTexture(m_startMenu);
+    UnloadTexture(m_confirmButton);
+    UnloadTexture(m_correctScreen);
+    UnloadTexture(m_thankYouScreen);
 
     UnloadMusicStream(m_backgroundMusic);
     UnloadSound(m_correctSound);
@@ -54,7 +59,7 @@ void LevelManager::Update()
     m_level->Update();
 
     if(m_level->CheckPuzzle()){
-        PlaySound(m_correctSound);
+        if(!IsSoundPlaying(m_correctSound)) PlaySound(m_correctSound);
     }
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && m_level->CheckPuzzle()){
@@ -65,7 +70,6 @@ void LevelManager::Update()
 void LevelManager::Draw()
 {
     DrawTexture(m_background,0,0,WHITE);
-
 
     m_level->Draw();
 

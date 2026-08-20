@@ -5,14 +5,15 @@ LevelData CreateLevel3(){
     LevelData level;
 
     level.units = {
+        
         {
-           "Firefighter", RED, {350, 540}, {180, 180},  UnitType::Firefighter, "codes/Images/Unit/Unit1.png"
+           "Police", DARKBLUE, {350, 540}, {180, 180},  UnitType::Police, "codes/Images/Unit/Unit2.png"
         },
 
         {
-           "Police", DARKBLUE, {450, 540}, {180, 180},  UnitType::Police, "codes/Images/Unit/Unit2.png"
+           "Firefighter", RED, {450, 540}, {180, 180},  UnitType::Firefighter, "codes/Images/Unit/Unit1.png"
         },
-
+        
         {
            "Army", DARKGREEN, {550, 540}, {180, 180},  UnitType::Soldier, "codes/Images/Unit/Unit3.png"
         },
