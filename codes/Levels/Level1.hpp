@@ -1,4 +1,4 @@
 #pragma once
-#include "LevelData.hpp"
+#include "../LevelData.hpp"
 
 LevelData CreateLevel1();

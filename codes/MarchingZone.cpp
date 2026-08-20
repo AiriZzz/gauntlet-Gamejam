@@ -6,11 +6,11 @@ void MarchingZone::Draw(Vector2 mousePosition, bool isDragging)const{
         m_position.x,m_position.y,
         m_size.x, m_size.y,};
 
-    Color zoneColor = DARKGRAY;
+    Color zoneColor = BLANK;
 
         if ( isDragging || CheckCollisionPointRec(mousePosition, zoneRect))
     {
-        zoneColor = BLUE;
+        zoneColor = BLANK;
     } //Change the color of the zone into blue if dragging unit and hovering on top of the zone
 
     DrawRectangleLines(
@@ -70,7 +70,7 @@ void MarchingZone::ArrangeUnits(){
     UpdateSize(); //Update zone size first before arraging the units
 
     float currentX = m_position.x + m_unitSpaces;
-    float currentY = m_position.y + m_unitSpaces;
+    float currentY = m_position.y + (m_size.y/2) - 50; //hard coded to make Unit be at the centre of y of the marching zone
 
     for (Unit* unit : m_units){
             
@@ -110,7 +110,7 @@ void MarchingZone::ReorderUnits(Unit* unit, float mouseX){
             otherUnit->GetPosition().x +
             otherUnit->GetSize().x / 2.0f;
 
-        if (mouseX > unitCenterX) //compare the mouse position center where
+        if (mouseX > unitCenterX) //compare the mouse position center unit
         {
             insertIndex++;
         }
@@ -123,7 +123,7 @@ void MarchingZone::ReorderUnits(Unit* unit, float mouseX){
     m_units.insert(m_units.begin() + insertIndex, unit); //push on the vector array
 
     ArrangeUnits();
-} //This method is for rearranging the unit inside the zones when picking up a unit
+} //This method is for ordering the unit inside the zones when picking up a unit
 
 void MarchingZone::HandleDrop(Unit* unit, float mouseX){
 

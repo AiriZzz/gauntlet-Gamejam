@@ -12,6 +12,7 @@ struct UnitData{
     Vector2 position;
     Vector2 size;
     UnitType type;
+    std::string texturePath;
 
 };
 
@@ -21,9 +22,6 @@ struct LevelData{
     std::vector<UnitData> units;
     std::vector<UnitType> solution;
 
-    //Vector2 zonePosition;
-    //Vector2 zoneSize;
-
-    //std::string LevelPopup;
+    std::string LevelPopup;
     
 };

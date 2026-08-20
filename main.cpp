@@ -1,6 +1,5 @@
 #include "raylib.h"
 #include "codes/Level.hpp"
-#include "codes/Level1.hpp"
 #include "codes/LevelManager.hpp"
 #include <vector>
 
@@ -8,9 +7,11 @@
 
 int main(void)
 {
-    InitWindow(1366, 768, "Will it Parade?");
+    InitWindow(1920, 1080, "Will it Parade?");
     SetTargetFPS(144);
 
+    InitAudioDevice();
+    
     LevelManager levelManager;
 
 

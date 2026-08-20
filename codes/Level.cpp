@@ -1,19 +1,23 @@
 #include "Level.hpp"
 
 Level::Level(const LevelData& levelData) 
-: m_unitZones ({260, 550}, {400, 190}), 
-    m_marchingZones({700, 270}, {600, 260}, levelData.solution){
+: m_unitZones ({390, 790}, {400, 250}), 
+    m_marchingZones({960, 440}, {700, 300}, levelData.solution){
 
-    m_levelPopup = LoadTexture("codes/Images/Level1.png");
+    m_levelPopup = LoadTexture(levelData.LevelPopup.c_str());
     
     for (const UnitData& unitData : levelData.units)
     {
-        m_units.push_back(std::make_unique<Unit>(unitData.name, unitData.color, unitData.position, unitData.size, unitData.type));
+        m_units.push_back(std::make_unique<Unit>(unitData.name, unitData.color, unitData.position, unitData.size, unitData.type, unitData.texturePath));
 
         m_unitZones.AddingUnit(m_units.back().get());
     }
 }
 
+Level::~Level(){
+
+    UnloadTexture(m_levelPopup);
+}
 
 void Level::Update(){
 
@@ -21,7 +25,8 @@ void Level::Update(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        std::cout << mousePosition.x << " " << mousePosition.y << "\n" ;
+        //std::cout << mousePosition.x << " " << mousePosition.y << "\n" ; /JUST MOUSE COORDINATION
+        
         for (int i = m_units.size() - 1; i >= 0; i--) //check for unit inside units, backwards
         {
             if (m_units[i]->IsMouseOver(mousePosition)) //found the unit that overlaps with mouse
@@ -79,10 +84,10 @@ void Level::Update(){
             m_draggingUnit = nullptr;   //reset what unit is being drag.
         }
     }
-
+    
     Rectangle checkButton{
-    1020, 500,
-    150, 50
+    1400, 830,
+    400, 200
     };
 
     if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -99,7 +104,7 @@ void Level::Update(){
 void Level::Draw(){
 
     Vector2 mousePosition = GetMousePosition();
-    DrawText("UNIT ZONE", 190, 200, 20, BLACK);
+    //DrawText("UNIT ZONE", 190, 200, 20, BLACK);
     
     bool isDraggin = m_draggingUnit != nullptr;
     m_marchingZones.Draw(mousePosition, isDraggin); //Draw the Marching zones
@@ -107,32 +112,16 @@ void Level::Draw(){
     m_unitZones.Draw(); //Draw the Unit Zones
     
     for (const auto& unit : m_units) unit->Draw();     //Draw unit from vector
-    
-    if (m_puzzleSolved){
-        DrawText("PUZZLE SOLVED!",880,100,30,GREEN);
-
-        DrawText("Great job!",830,140,20,DARKGREEN);
-    } //When puzzle is solved, write a simple text
 
     DrawTextureEx(
         m_levelPopup,
-        {120,80}, 0, 0.4,
+        {65,90}, 0, 0.5,
         WHITE
     ); //Draw Image texture
 
-    Rectangle checkButton{
-    1020, 500,
-    150, 50
-    };
+}
 
-    DrawRectangleRec(
-    checkButton,
-    ORANGE
-    );
+bool Level::CheckPuzzle(){
 
-    DrawText(
-    "CHECK",
-    1060, 515, 20,
-    BLACK
-    ); //Adding a check button for the solution to be checked
+    return m_puzzleSolved;
 }

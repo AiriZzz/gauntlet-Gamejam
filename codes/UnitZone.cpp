@@ -2,7 +2,7 @@
 
 void UnitZone::Draw() const {
 
-    Color zoneColor = LIGHTGRAY;
+    Color zoneColor = BLANK;
 
     DrawRectangleLines(
         m_position.x, m_position.y,
@@ -61,7 +61,7 @@ void UnitZone::ArrangeUnits(){
     UpdateSize(); //Update zone size first before arraging the units
 
     float currentX = m_position.x + m_unitSpaces;
-    float currentY = m_position.y + m_unitSpaces;
+    float currentY = m_position.y + (m_size.y/2) - 120; //Hard coded to make unit snap in the centre of the y of unit zone
 
     for (Unit* unit : m_units){
             
@@ -81,7 +81,6 @@ void UnitZone::UpdateSize(){
         zoneWidth += m_unitSpaces;
     }
 
-    //if(zoneWidth > m_minWidth) m_size.x = zoneWidth; //check if the zone Width will get bigger than the default width
     m_size.x = std::max(m_minWidth, zoneWidth); //always calculate the width of the zone width.
 
 } //This calculate the width of the zone, for every units inside it, it expands

@@ -6,7 +6,7 @@ LevelData CreateLevel1(){
 
     level.units = {
         {
-           "Firefighter", RED, {280, 550}, {80, 80},  UnitType::Firefighter
+           "Firefighter", RED, {280, 550}, {180, 180},  UnitType::Firefighter, "codes/Images/Unit/Unit1.png"
         },
 
     };
@@ -14,6 +14,8 @@ LevelData CreateLevel1(){
     level.solution = {
         UnitType::Firefighter,
     };
+
+    level.LevelPopup = "codes/Images/Levels/Level1.png";
 
     return level;
 

@@ -13,9 +13,12 @@ class Level
 {
 public:
     Level(const LevelData& levelData);
+    ~Level();
 
     void Update();
     void Draw();
+
+    bool CheckPuzzle();
 
 private:
     std::vector<std::unique_ptr<Unit>> m_units;
@@ -27,4 +30,5 @@ private:
     bool m_puzzleSolved = false;
 
     Texture2D m_levelPopup;
+
 };

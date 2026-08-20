@@ -10,17 +10,17 @@ enum class UnitType{
     Police,
     Soldier,
     Ghost,
-    Animal,
+    Artist,
 
 };
 
 //Unit are the classes for the unit to drag and drop.
 class Unit{
     public:
-        Unit(const std::string& name, Color color,const Vector2& position,const Vector2& size, UnitType type)
-        : m_unitName(name), m_color(color), m_position(position), m_size(size), m_unitType(type){}
+        Unit(const std::string& name, Color color,const Vector2& position,const Vector2& size, UnitType type , const std::string& texturePath);
+        ~Unit();
 
-        void Draw();
+        void Draw()const;
         bool IsMouseOver(Vector2 mousePosition) const;
         void StartDragging(Vector2 mousePosition);
         void UpdateDragging(Vector2 mousePosition);
@@ -40,5 +40,6 @@ class Unit{
         Vector2 m_dragOffset;
         bool m_isDragging = false;
         UnitType m_unitType;
+        Texture2D m_texture;
 };
 
