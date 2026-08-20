@@ -121,7 +121,7 @@ void Level::Draw(){
 
 }
 
-bool Level::CheckPuzzle(){
+bool Level::CheckPuzzle()const{
 
     return m_puzzleSolved;
 }

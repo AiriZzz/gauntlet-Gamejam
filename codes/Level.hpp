@@ -18,7 +18,7 @@ public:
     void Update();
     void Draw();
 
-    bool CheckPuzzle();
+    bool CheckPuzzle()const;
 
 private:
     std::vector<std::unique_ptr<Unit>> m_units;
